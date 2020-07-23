@@ -1,6 +1,18 @@
 import React, { Component } from "react";
-import GameBoard from "./GameBoard";
+import MainGame from "./mainGame";
 class Game extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      playerStatus: null,
+    };
+  }
+  changeStatus = (value) => {
+    console.log(value);
+    this.setState({
+      playerStatus: value,
+    });
+  };
   render() {
     console.log(this.props);
     return (
@@ -12,12 +24,25 @@ class Game extends Component {
             width: "500px",
           }}
         >
-          <div>{this.props.player1}</div>
+          <div className="names">
+            <div> {this.props.player1} </div>
+            {!this.state.playerStatus ? (
+              <span className="greenDot"> </span>
+            ) : null}
+          </div>
           <button>Play</button>
-          <div>{this.props.player2}</div>
+          <div className="names">
+            <div> {this.props.player2}</div>
+            {this.state.playerStatus ? (
+              <span className="greenDot"> </span>
+            ) : null}
+          </div>
         </div>
-
-        <GameBoard player1={this.props.player1} player2={this.props.player2} />
+        <MainGame
+          player1={this.props.player1}
+          player2={this.props.player2}
+          playerStatus={this.changeStatus}
+        />
       </div>
     );
   }
