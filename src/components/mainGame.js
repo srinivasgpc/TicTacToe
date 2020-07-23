@@ -73,7 +73,10 @@ class MainGame extends React.Component {
       xIsNext: step % 2 === 0,
     });
   }
-
+  formatTimer = (value) => {
+    let newValue = Math.floor(Math.round(value / 1000));
+    return newValue;
+  };
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
@@ -96,10 +99,8 @@ class MainGame extends React.Component {
     } else if (this.state.winner.length > 0) {
       debugger;
       status = "Winner: " + this.state.winner;
-    } else {
-      status =
-        "Next player: " +
-        (this.state.xIsNext ? this.props.player1 : this.props.player2);
+    } else if (!current.squares.includes(null)) {
+      status = "Its a fucking draw";
     }
 
     return (
@@ -112,41 +113,65 @@ class MainGame extends React.Component {
               width: "500px",
             }}
           >
-            <div className="names">
-              <div> {this.props.player1} </div>
+            <div
+              className="names"
+              style={{ display: "flex", flexDirection: "column" }}
+            >
+              <div
+                className={!this.state.playerStatus ? "background-class" : null}
+              >
+                {" "}
+                {this.props.player1}{" "}
+              </div>
               {!this.state.playerStatus &&
               this.state.enableGame &&
+              current.squares.includes(null) &&
               winner === null ? (
-                <div>
-                  <div className="greenDot"> </div>
+                <div className="timer">
+                  {/* <div className="greenDot"> </div> */}
                   <Countdown
-                    date={Date.now() + 5000}
+                    date={Date.now() + 15000}
                     intervalDelay={0}
                     precision={3}
                     onComplete={(value) =>
                       this.onComplete(value, this.props.player2)
                     }
-                    renderer={(props) => <div>{props.total}</div>}
+                    renderer={(props) => (
+                      <div>{this.formatTimer(props.total)}</div>
+                    )}
                   />
                 </div>
               ) : null}
             </div>
-            <button onClick={this.startGame}>Play</button>
-            <div className="names">
-              <div> {this.props.player2}</div>
+            <button onClick={this.startGame} disabled={this.state.enableGame}>
+              Start
+            </button>
+            <div
+              className="names"
+              style={{ display: "flex", flexDirection: "column" }}
+            >
+              <div
+                className={this.state.playerStatus ? "background-class" : null}
+              >
+                {" "}
+                {this.props.player2}
+              </div>
               {this.state.playerStatus &&
               this.state.enableGame &&
+              current.squares.includes(null) &&
               winner === null ? (
-                <div>
-                  <div className="greenDot"> </div>
+                <div className="timer">
+                  {/* <div className="greenDot"> </div> */}
                   <Countdown
-                    date={Date.now() + 5000}
+                    date={Date.now() + 15000}
                     intervalDelay={0}
                     precision={3}
                     onComplete={(value) =>
                       this.onComplete(value, this.props.player1)
                     }
-                    renderer={(props) => <div>{props.total}</div>}
+                    renderer={(props) => (
+                      <div>{this.formatTimer(props.total)}</div>
+                    )}
                   />
                 </div>
               ) : null}

@@ -36,10 +36,6 @@
     transform: rotate(360deg);
   }
 }
-body {
-  font: 14px "Century Gothic", Futura, sans-serif;
-  margin: 20px;
-}
 
 ol,
 ul {
@@ -89,11 +85,32 @@ ul {
 }
 .names {
   display: flex;
+  position: relative;
 }
 .greenDot {
   margin-left: 5px;
-  width: 5px;
-  height: 5px;
+  width: 100%;
+  height: 1px;
   background: green;
+}
+.background-class {
+  border: 2px solid green;
+  color: green;
+  font-weight: 500;
+  padding: 5px;
+  border-radius: 3px;
+}
+.timer {
+  position: absolute;
+  top: 50px;
+  left: 20px;
+  background-color: white;
   border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

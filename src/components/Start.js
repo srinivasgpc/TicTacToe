@@ -19,9 +19,15 @@ class Start extends Component {
   };
 
   goToGame = (e) => {
-    this.setState({
-      showGame: true,
-    });
+    let { player1, player2 } = this.state;
+
+    if (player1.length > 0 && player2.length > 0) {
+      this.setState({
+        showGame: true,
+      });
+    } else {
+      alert("Please enter player names");
+    }
   };
   render() {
     const { showGame } = this.state;
