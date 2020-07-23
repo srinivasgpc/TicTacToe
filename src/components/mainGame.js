@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import GameBoard from "./GameBoard";
+
+//core logic
 class MainGame extends React.Component {
   constructor(props) {
     super(props);
@@ -14,24 +16,29 @@ class MainGame extends React.Component {
     };
   }
 
+  //click event for x and o determination
   handleClick(i) {
-    const history = this.state.history.slice(0, this.state.stepNumber + 1);
-    const current = history[history.length - 1];
-    const squares = current.squares.slice();
-    if (calculateWinner(squares) || squares[i]) {
-      return;
+    if (this.props.enableGame) {
+      const history = this.state.history.slice(0, this.state.stepNumber + 1);
+      const current = history[history.length - 1];
+      const squares = current.squares.slice();
+      if (calculateWinner(squares) || squares[i]) {
+        return;
+      }
+      squares[i] = this.state.xIsNext ? "X" : "O";
+      this.setState({
+        history: history.concat([
+          {
+            squares: squares,
+          },
+        ]),
+        stepNumber: history.length,
+        xIsNext: !this.state.xIsNext,
+      });
+      this.props.playerStatus(this.state.xIsNext);
+    } else {
+      alert("Please start the game");
     }
-    squares[i] = this.state.xIsNext ? "X" : "O";
-    this.setState({
-      history: history.concat([
-        {
-          squares: squares,
-        },
-      ]),
-      stepNumber: history.length,
-      xIsNext: !this.state.xIsNext,
-    });
-    this.props.playerStatus(this.state.xIsNext);
   }
 
   jumpTo(step) {
@@ -66,7 +73,15 @@ class MainGame extends React.Component {
     }
 
     return (
-      <div className="game">
+      <div
+        className="game "
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          margin: "10px",
+        }}
+      >
         <div className="game-board">
           <GameBoard
             squares={current.squares}
@@ -74,7 +89,7 @@ class MainGame extends React.Component {
           />
         </div>
         <div className="game-info">
-          <div>{status}</div>
+          {this.props.enableGame ? <div>{status}</div> : null}
           {/* <ol>{moves}</ol> */}
         </div>
       </div>
@@ -84,6 +99,7 @@ class MainGame extends React.Component {
 
 export default MainGame;
 
+//winner calculation
 function calculateWinner(squares) {
   const lines = [
     [0, 1, 2],

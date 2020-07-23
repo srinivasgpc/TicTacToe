@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+
+// rendering each square block
 function Square(props) {
   return (
     <button className="square" onClick={props.onClick}>
@@ -8,6 +10,7 @@ function Square(props) {
 }
 
 class GameBoard extends React.Component {
+  //rendering each block in parent
   renderSquare(i) {
     return (
       <Square
