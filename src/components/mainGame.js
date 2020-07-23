@@ -100,7 +100,7 @@ class MainGame extends React.Component {
       debugger;
       status = "Winner: " + this.state.winner;
     } else if (!current.squares.includes(null)) {
-      status = "Its a fucking draw";
+      status = "Draw";
     }
 
     return (
