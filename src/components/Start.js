@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import Game from "./Game";
+// import Game from "./Game";
+import MainGame from "./mainGame";
 class Start extends Component {
   constructor(props) {
     super(props);
@@ -44,7 +45,10 @@ class Start extends Component {
               <button onClick={(e) => this.goToGame(e)}>Start</button>
             </div>
           ) : (
-            <Game player1={this.state.player1} player2={this.state.player2} />
+            <MainGame
+              player1={this.state.player1}
+              player2={this.state.player2}
+            />
           )}
         </header>
       </div>

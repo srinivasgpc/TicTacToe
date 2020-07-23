@@ -31,15 +31,19 @@ class Game extends Component {
       });
     }
   };
+  stopGame = (key) => {
+    if (key) {
+    }
+  };
   render() {
     console.log(this.props);
     return (
       <div>
-        {this.state.winner.length > 0 ? (
+        {/* {this.state.winner.length > 0 ? (
           <div>
             Winner: <span>{this.state.winner}</span>
           </div>
-        ) : null}
+        ) : null} */}
         <div
           style={{
             display: "flex",
@@ -84,10 +88,12 @@ class Game extends Component {
           </div>
         </div>
         <MainGame
+          winnerByTime={this.state.winner}
           enableGame={this.state.enableGame}
           player1={this.props.player1}
           player2={this.props.player2}
           playerStatus={this.changeStatus}
+          stopGame={this.stopGame}
         />
       </div>
     );
