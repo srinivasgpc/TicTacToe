@@ -26,6 +26,20 @@ class MainGame extends React.Component {
       winner: "",
     });
   };
+  resetGame = () => {
+    debugger;
+    let { history } = this.state;
+
+    history[0]["squares"] = Array(9).fill(null);
+    this.setState({
+      history: history,
+      winner: "",
+      xIsNext: true,
+      playerStatus: null,
+      enableGame: false,
+      stepNumber: 0,
+    });
+  };
   //status of the player
   changeStatus = (value) => {
     console.log(value);
@@ -97,7 +111,6 @@ class MainGame extends React.Component {
       status =
         "Winner: " + (winner === "X" ? this.props.player1 : this.props.player2);
     } else if (this.state.winner.length > 0) {
-      debugger;
       status = "Winner: " + this.state.winner;
     } else if (!current.squares.includes(null)) {
       status = "Draw";
@@ -130,7 +143,7 @@ class MainGame extends React.Component {
                 <div className="timer">
                   {/* <div className="greenDot"> </div> */}
                   <Countdown
-                    date={Date.now() + 15000}
+                    date={Date.now() + 5000}
                     intervalDelay={0}
                     precision={3}
                     onComplete={(value) =>
@@ -143,9 +156,18 @@ class MainGame extends React.Component {
                 </div>
               ) : null}
             </div>
-            <button onClick={this.startGame} disabled={this.state.enableGame}>
-              Start
+            <button
+              onClick={
+                winner !== null || this.state.winner.length > 0
+                  ? this.resetGame
+                  : this.startGame
+              }
+            >
+              {winner !== null || this.state.winner.length > 0
+                ? "Reset"
+                : "Start"}
             </button>
+
             <div
               className="names"
               style={{ display: "flex", flexDirection: "column" }}
@@ -163,7 +185,7 @@ class MainGame extends React.Component {
                 <div className="timer">
                   {/* <div className="greenDot"> </div> */}
                   <Countdown
-                    date={Date.now() + 15000}
+                    date={Date.now() + 5000}
                     intervalDelay={0}
                     precision={3}
                     onComplete={(value) =>
@@ -195,6 +217,7 @@ class MainGame extends React.Component {
           </div>
           <div className="game-info">
             <div>{status}</div>
+
             {/* <ol>{moves}</ol> */}
           </div>
         </div>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import Game from "./Game";
-import MainGame from "./mainGame";
+import MainGame from "./MainGame";
 class Start extends Component {
   constructor(props) {
     super(props);
