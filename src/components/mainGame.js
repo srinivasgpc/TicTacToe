@@ -21,10 +21,13 @@ class MainGame extends React.Component {
   }
 
   startGame = () => {
+    let { history } = this.state;
+
+    let fillall = history[history.length - 1]["squares"].includes(null);
+    console.log(fillall);
     this.setState({
       enableGame: true,
       winner: "",
-      playerStatus: true,
     });
   };
   resetGame = () => {
@@ -96,8 +99,6 @@ class MainGame extends React.Component {
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
-    console.log(this.state.playerStatus);
-
     const moves = history.map((step, move) => {
       const desc = move ? "Go to move #" + move : "Go to game start";
       return (
@@ -111,7 +112,7 @@ class MainGame extends React.Component {
 
     if (winner) {
       status =
-        "Winner: " + (winner === "X" ? this.props.player1 : this.props.player2);
+        "Winner: " + (winner === "X" ? this.props.player2 : this.props.player1);
     } else if (this.state.winner.length > 0) {
       status = "Winner: " + this.state.winner;
     } else if (!current.squares.includes(null)) {
@@ -132,13 +133,11 @@ class MainGame extends React.Component {
               className="names"
               style={{ display: "flex", flexDirection: "column" }}
             >
-              <div
-                className={!this.state.playerStatus ? "background-class" : null}
-              >
+              <div className={!this.state.xIsNext ? "background-class" : null}>
                 {" "}
                 {this.props.player1}{" "}
               </div>
-              {!this.state.playerStatus &&
+              {!this.state.xIsNext &&
               this.state.enableGame &&
               current.squares.includes(null) &&
               winner === null ? (
@@ -174,13 +173,11 @@ class MainGame extends React.Component {
               className="names"
               style={{ display: "flex", flexDirection: "column" }}
             >
-              <div
-                className={this.state.playerStatus ? "background-class" : null}
-              >
+              <div className={this.state.xIsNext ? "background-class" : null}>
                 {" "}
                 {this.props.player2}
               </div>
-              {this.state.playerStatus &&
+              {this.state.xIsNext &&
               this.state.enableGame &&
               current.squares.includes(null) &&
               winner === null ? (
