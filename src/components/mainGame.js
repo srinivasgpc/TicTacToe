@@ -24,6 +24,7 @@ class MainGame extends React.Component {
     this.setState({
       enableGame: true,
       winner: "",
+      playerStatus: true,
     });
   };
   resetGame = () => {
@@ -94,6 +95,8 @@ class MainGame extends React.Component {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
+
+    console.log(this.state.playerStatus);
 
     const moves = history.map((step, move) => {
       const desc = move ? "Go to move #" + move : "Go to game start";
