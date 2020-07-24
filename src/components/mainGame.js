@@ -27,7 +27,6 @@ class MainGame extends React.Component {
     });
   };
   resetGame = () => {
-    debugger;
     let { history } = this.state;
 
     history[0]["squares"] = Array(9).fill(null);

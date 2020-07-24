@@ -48,7 +48,7 @@ class Start extends Component {
                 placeholder="Player2"
                 onChange={(e) => this.handleChange(e, "two")}
               />
-              <button onClick={(e) => this.goToGame(e)}>Start</button>
+              <button onClick={(e) => this.goToGame(e)}>Enter</button>
             </div>
           ) : (
             <MainGame
