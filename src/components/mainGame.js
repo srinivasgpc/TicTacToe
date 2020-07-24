@@ -25,14 +25,11 @@ class MainGame extends React.Component {
 
     let fillall = history[history.length - 1]["squares"].includes(null);
     console.log(fillall);
-    if (!fillall) {
-      this.resetGame();
-    } else {
-      this.setState({
-        enableGame: true,
-        winner: "",
-      });
-    }
+
+    this.setState({
+      enableGame: true,
+      winner: "",
+    });
   };
   resetGame = () => {
     let { history } = this.state;
